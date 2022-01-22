@@ -1,6 +1,6 @@
-from rest_framework import serializers
+from rest_framework import routers, serializers, viewsets
 
-from account.models import Account
+from account.models import Account,InvestorAccount,Startup
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -29,3 +29,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		account.set_password(password)
 		account.save()
 		return account
+
+
+class InvestorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvestorAccount
+        fields = ('__all__')
+
+class StartupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Startup
+        fields=('__all__')

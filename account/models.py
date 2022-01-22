@@ -25,19 +25,19 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_vendor(self, shop_number, shop_name, shop_add, plan, gst, vendor, subscripton_amount):
-
-        user = self.model(
-            shop_number=shop_number,
-            shop_name=shop_name,
-            shop_add=shop_add,
-            plan=plan,
-            gst=gst,
-            vendor=vendor,
-            subscripton_amount=subscripton_amount,
-        )
-        user.save(using=self._db)
-        return user
+    # def create_vendor(self, shop_number, shop_name, shop_add, plan, gst, vendor, subscripton_amount):
+    #
+    #     user = self.model(
+    #         shop_number=shop_number,
+    #         shop_name=shop_name,
+    #         shop_add=shop_add,
+    #         plan=plan,
+    #         gst=gst,
+    #         vendor=vendor,
+    #         subscripton_amount=subscripton_amount,
+    #     )
+    #     user.save(using=self._db)
+    #     return user
 
     def create_superuser(self, email, name, contact_number, password):
         user = self.create_user(
@@ -87,32 +87,10 @@ def get_uplaod_file_name_blog(userpic, filename,):
     return u'blog/%s/%s%s' % (str(userpic.blogger_id)+"/template","",filename)
 
 class InvestorAccount(models.Model):
-    vendor = models.OneToOneField(Account, default=None, on_delete=models.CASCADE, primary_key=True, )
+    investor = models.OneToOneField(Account, default=None, on_delete=models.CASCADE, primary_key=True, )
     email = models.EmailField(verbose_name="email", max_length=100)
-    office_number = models.IntegerField(null=True, blank=True)
-    office_name = models.CharField(max_length=150)
-    office_add = models.CharField(max_length=200)
-    city = models.CharField(max_length=30)
-    state = models.CharField(max_length=20)
-    aadhaar_card = models.CharField(max_length=30, null=True, blank=True)
-    pan = models.CharField(max_length=30, null=True, blank=True)
-    pan_image = models.ImageField(upload_to=get_uplaod_file_name, null=True, blank=True, )
-    aadhaar_image = models.ImageField(upload_to=get_uplaod_file_name, null=True, blank=True, )
-    facebook_link = models.CharField(max_length=200, null=True, blank=True)
-    instagram_link = models.CharField(max_length=200, null=True, blank=True)
-    twitter_link = models.CharField(max_length=200, null=True, blank=True)
-    linkedin_link = models.CharField(max_length=200, null=True, blank=True)
-    youtube_link = models.CharField(max_length=200, null=True, blank=True)
-    # pinterest_link = models.CharField(max_length=200, null=True, blank=True)
-    pickup_address = models.CharField(max_length=200, null=True, blank=True)
-    bank_account_number=models.IntegerField(null=True, blank=True)
-    bank_ifsc_code = models.IntegerField(null=True, blank=True)
-    bank_name = models.CharField(max_length=50, null=True, blank=True)
-    bank_account_holder_name = models.CharField(max_length=100, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    logo = models.ImageField(upload_to=get_uplaod_file_name, null=True, blank=True, )
-    # vision = models.CharField(max_length=1200, null=True, blank=True)
 
     # objects= MyAccountManager()
     def __str__(self):
@@ -126,20 +104,18 @@ class InvestorAccount(models.Model):
 #         return True
 
 
-# class BloggerAccount(models.Model):
-#     # Blogger_id = models.AutoField(primary_key=True)
-#     blogger = models.OneToOneField(Account, default=None, on_delete=models.CASCADE, primary_key=True, )
-#     email = models.EmailField(verbose_name="email", max_length=100)
-#     subscripton_amount = models.IntegerField(null=True, blank=True)
-#     blogname = models.CharField(max_length=30, unique=True)
-#     address = models.CharField(max_length=100)
-#     city = models.CharField(max_length=30)
-#     state = models.CharField(max_length=20)
-#     is_blocked = models.BooleanField(default=False)
-#     is_active = models.BooleanField(default=True)
-#
-#     def __str__(self):
-#         return self.email
+class Startup(models.Model):
+    startup = models.OneToOneField(Account, default=None, on_delete=models.CASCADE, primary_key=True, )
+    email = models.EmailField(verbose_name="email", max_length=100)
+    startup_name = models.CharField(max_length=30)
+    vision = models.TextField()
+    type = models.CharField(max_length=30)
+    description = models.TextField()
+    short_description = models.CharField(max_length=120)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

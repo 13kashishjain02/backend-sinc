@@ -9,4 +9,6 @@ urlpatterns = [
     path('login/',obtain_auth_token,name='login'),
     # path('login/',views.login,name='login'),
     # path('vendorregister',views.vendorregister,name='vendorregistration'),
+    path('startup-api', views.Startup_api),
+    path('startup-api/<int:id>/', views.Startup_api),
 ]

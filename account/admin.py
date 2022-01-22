@@ -1,5 +1,5 @@
 from django.contrib import admin
-from account.models import Account, InvestorAccount
+from account.models import Account, InvestorAccount,Startup
 # from django.contrib.auth.admin import UserAdmin
 
 
@@ -28,5 +28,5 @@ admin.site.register(Account, AccountAdmin)
 # admin.site.register(InvestorAccount, VendorAdmin)
 # admin.site.register(BloggerAccount)
 
-# admin.site.register(Account)
+admin.site.register(Startup)
 admin.site.register(InvestorAccount)
