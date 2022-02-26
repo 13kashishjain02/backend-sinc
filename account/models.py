@@ -103,15 +103,24 @@ class InvestorAccount(models.Model):
 #     def has_module_perms(self, app_label):
 #         return True
 
-
+def get_uplaod_startup(userpic, filename, ):
+    return u'startup/%s/%s%s' % (str(userpic.email), "", filename)
 class Startup(models.Model):
     startup = models.OneToOneField(Account, default=None, on_delete=models.CASCADE, primary_key=True, )
     email = models.EmailField(verbose_name="email", max_length=100)
     startup_name = models.CharField(max_length=30)
+    batch_of= models.CharField(max_length=30)
+    contact_number= models.IntegerField(null=True, blank=True)
+    num_founders= models.IntegerField(null=True, blank=True)
+    is_registered=models.BooleanField(default=False)
+    as_participant=models.BooleanField(default=False)
+    to_seek_help=models.BooleanField(default=False)
+    cur_stage= models.CharField(max_length=50)
     vision = models.TextField()
     type = models.CharField(max_length=30)
     description = models.TextField()
     short_description = models.CharField(max_length=120)
+    image=models.ImageField(upload_to=get_uplaod_startup,null=True, blank=True, )
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
